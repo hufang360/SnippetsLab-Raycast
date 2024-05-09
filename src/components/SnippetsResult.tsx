@@ -31,10 +31,17 @@ export default function ({
   snippetsApp: any;
 }) {
   // 提取分类
-  const categoryRegex = /^(.*?)(?=,|\s\()/;
-  const category = result.subtitle.match(categoryRegex)![1].trim();
+  const categoryRegex = /^(.*?)\􀈕\s(.*?)\s*􀙚\s(.*?)$/;
+  const subtitle = result?.subtitle;
+  const categoryMatch = subtitle ? subtitle.match(categoryRegex) : null;
+  const category = categoryMatch ? categoryMatch[2].trim() : '';
   const tagRegex = /#(\S+)/g;
-  const tags = result.subtitle.match(tagRegex);
+  const tags = subtitle ? subtitle.match(tagRegex) : null;
+
+  if (!snippetsApp) {
+    throw new Error('snippetsApp is required');
+  }
+
   return (
     <List.Item
       key={result.uid}
@@ -45,15 +52,13 @@ export default function ({
       actions={
         <ActionPanel>
           <Action
-            title="Copy to clipboard"
-            shortcut={{ modifiers: ["cmd"], key: "enter" }}
+            title="Copy to Clipboard"
+            shortcut={{ modifiers: ["cmd"], key: "c" }}
             onAction={async () => copyCallbackInBackground(index)}
           />
           <Action
             title="Paste"
-            onAction={async () =>
-              pasteCallbackInBackground(snippetsApp!.path, index)
-            }
+            onAction={async () => pasteCallbackInBackground(snippetsApp.path, index)}
           />
           <Action
             title="Open in SnippetsLab"

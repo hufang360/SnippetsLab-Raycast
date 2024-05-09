@@ -4,10 +4,11 @@
   "title": "SnippetsLab",
   "description": "Search your SnippetsLab snippets from Raycast",
   "icon": "command-icon.png",
-  "author": "1874",
-  "homepage": "https://github.com/SnippetsLab-Raycast#readme",
+  "author": "hufang360",
+  "homepage": "https://github.com/hufang360",
   "categories": [
-    "Developer Tools", "Productivity"
+    "Developer Tools",
+    "Productivity"
   ],
   "license": "MIT",
   "commands": [
